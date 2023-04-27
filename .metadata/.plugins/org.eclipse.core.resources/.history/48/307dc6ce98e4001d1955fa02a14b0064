@@ -1,0 +1,11 @@
+package com.greedy.api.section01.response;
+
+public class Message {
+	
+	private int httpStatusCode;
+	private String message;
+	
+	public Message() {}
+	
+
+}

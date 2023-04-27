@@ -1,0 +1,5 @@
+package com.greedy.api.section02.responseentity;
+
+public class ResponseMessage {
+
+}
