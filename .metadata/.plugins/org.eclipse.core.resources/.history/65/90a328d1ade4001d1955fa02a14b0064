@@ -1,0 +1,8 @@
+package com.greedy.api.secion03.valid;
+
+public class UserNotFoundException extends Exception {
+
+	public UserNotFoundException(String msg) {
+		super(msg)
+	}
+}

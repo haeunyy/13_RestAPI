@@ -1,0 +1,21 @@
+package com.greedy.api.secion03.valid;
+
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.ControllerAdvice;
+import org.springframework.web.bind.annotation.ExceptionHandler;
+
+/* @ControllerAdvice : 컨트롤러를 보조해주는 기능을 제공한다는 것을 명시하는 어노테이션으로 
+ * 해당 클래스내에 전역 예외처리를 등록할 수 있다. */
+@ControllerAdvice
+public class ExceptionController {
+
+	@ExceptionHandler(UserNotFoundException.class)
+	public  ResponseEntity<ErrorMessage> handleUserException(){
+		
+		String code = "ERROR_CODE_00000";
+		String description = "회원 정보 조회 실패";
+		String detail = e.getMessage():
+			
+		return null;
+	}
+}
