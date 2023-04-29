@@ -44,7 +44,7 @@ public class ExceptionController {
 				break;
 			case "Size" : 
 				code = "ERROR_CODE_0003";
-				description = "알맞은 크기의 앖이 입력되지 않았습니다. ";
+				description = "알맞은 크기의 값이 입력되지 않았습니다. ";
 				break;
 			case "Past" : 
 				code = "ERROR_CODE_0004";

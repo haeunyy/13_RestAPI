@@ -36,7 +36,7 @@ public class ValidTestController {
 		/* user  객체 생성하고자 할 떼 유효성 검사 모듈 사용하여 예외처리 */
 		
 		return ResponseEntity
-				.created(URI.create("/valid/user/{userId}"))
+				.created(URI.create("/valid/users/4"))
 				.build();
 		}
 	

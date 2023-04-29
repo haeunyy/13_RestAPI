@@ -34,6 +34,7 @@ public class ResponseEntityTestController {
 		users.add(new UserDTO(3, "user03","pass03","홍",new Date()));
 	}
 	
+	
 	/* ResponseEntity 란 
 	 * 결과 데이터와 HTTP 상태코드, 응답 헤더를 직접 제어할 수 있는 클래스이다. */
 	
@@ -53,13 +54,15 @@ public class ResponseEntityTestController {
 		return new ResponseEntity<>(responseMessage, headers, HttpStatus.OK);
 	}
 	
+	
+	
 	@GetMapping("/users/{userNo}")
 	public ResponseEntity<ResponseMessage> findUserByNo(@PathVariable int userNo){
 		
 		HttpHeaders headers = new HttpHeaders();
 		headers.setContentType(new MediaType("application", "json", Charset.forName("UTF-8")));
 		
-		UserDTO foundUser = users.stream().filter(user-> user.getNo() == userNo ).toList().get(0);
+		UserDTO foundUser = users.stream().filter(user-> user.getNo() == userNo).toList().get(0);
 		
 		Map<String, Object> responseMap = new HashMap<>();
 		responseMap.put("user",foundUser);
@@ -92,6 +95,8 @@ public class ResponseEntityTestController {
 				.created(URI.create("/entity/users/"+users.get(users.size() -1 ).getNo()))
 				.build();
 	}
+	
+	
 
 	/* 메소드 방식이 다르기 때문에 경로가 같아도 구분이 되어 정상작동함 */
 	@PutMapping("/users/{userNo}")

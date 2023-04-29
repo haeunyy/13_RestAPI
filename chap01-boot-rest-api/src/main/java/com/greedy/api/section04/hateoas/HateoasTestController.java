@@ -1,5 +1,8 @@
 package com.greedy.api.section04.hateoas;
 
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
+
 import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.Date;
@@ -8,11 +11,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
-import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
-
+import org.springframework.hateoas.CollectionModel;
 import org.springframework.hateoas.EntityModel;
-import org.springframework.hateoas.Link;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -22,8 +22,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.greedy.api.section02.responseentity.ResponseMessage;
-import com.greedy.api.section03.valid.UserDTO;
 
 
 @RestController
@@ -39,6 +37,11 @@ public class HateoasTestController {
 	
 	/* mven repo에서 받아온다. */
 	private List<UserDTO> users;
+	private EntityToModelConverter entityToModelConverter;
+	
+	public HateoasTestController(EntityToModelConverter entityToModelConverter) {
+		this.entityToModelConverter = entityToModelConverter;
+	}
 
 	public HateoasTestController() {
 		users = new ArrayList<>();
@@ -59,7 +62,7 @@ public class HateoasTestController {
 		 * RepresentationModel 클래스는 Link 객체를 담을 수 있고 이를 상속한 EntityModel 클래스는 해당 링크를 가진 
 		 * 자원 객체(content)를 담을 수 있다. 
 		 * 모델의 add메소드로 담긴 Link 객체들이 반환 값에 links 배열로 담긴다. 
-		 * 각 링크에는 링ㅌ크 객체 생성 시 매개변수로 정의한 위치(href)와 관계(rel)가 담겨 있으며
+		 * 각 링크에는 링크 객체 생성 시 매개변수로 정의한 위치(href)와 관계(rel)가 담겨 있으며
 		 * 클라이언트 측에서는 이 정보를 이용하여 다른 자원들에 접근하거나 서비스를 이용할 수 있다.
 		 * */
 		/*
@@ -81,17 +84,33 @@ public class HateoasTestController {
 		 * methodOn : 해당 클래스의 메소드를 참조하는데 사용
 		 * => 특정 컨트롤러 클래스의 Mapping 메소드 기반으로 자동 링크 생성
 		 */
+//		List<EntityModel<UserDTO>> userWithRel = 
+//				users.stream().map(user-> EntityModel.of(user, 
+//						// HateoasTestController의 findUserByNo 메소드에 대한 자기 자신 (self)링크 생성
+//						linkTo(methodOn(HateoasTestController.class).findUserByNo(user.getNo())).withSelfRel(),
+//						// HateoasTestController의 findAllUsers 메소드에 대한 list 링크 생성
+//						linkTo(methodOn(HateoasTestController.class).findAllUsers()).withRel("users")
+//						)).collect(Collectors.toList());
+
+		/* 3. ControllerModel : 별도의 링크 추가 시 사용 */
+//		CollectionModel<EntityModel<UserDTO>> collectionModel = CollectionModel.of(userWithRel,
+//				linkTo(methodOn(HateoasTestController.class).findAllUsers()).withSelfRel());
+		
+		/* 4. RepresentationModelAssembler
+		 * 반복되는 코드를 분리해서 작성할 수 있도록 인터페이스를 상속한 구현체를 만들어서 사용한다. 
+		 * userWithRel (84번) 코드를 분리해서 작성했다. 
+		 */
 		List<EntityModel<UserDTO>> userWithRel = 
-				users.stream().map(user-> EntityModel.of(user, 
-						// HateoasTestController의 findUserByNo 메소드에 대한 자기 자신 (self)링크 생성
-						linkTo(methodOn(HateoasTestController.class).findUserByNo(user.getNo())).withSelfRel(),
-						// HateoasTestController의 findAllUsers 메소드에 대한 list 링크 생성
-						linkTo(methodOn(HateoasTestController.class).findAllUsers()).withRel("users")
-						)).collect(Collectors.toList());
+				users.stream().map(entityToModelConverter::toModel).collect(Collectors.toList());
 
 		
+		
 		Map<String , Object> responseMap = new HashMap<>();
-		responseMap.put("users",userWithRel);
+		// 1,2 테스트 시 사용
+//		responseMap.put("users",userWithRel);
+		
+		// 3 테스트시 사용
+//		responseMap.put("users", collectionModel);
 		
 		ResponseMessage responseMessage = new ResponseMessage(200, "조회 성공", responseMap);
 		
