@@ -1,5 +1,6 @@
 import { NavLink } from 'react-router-dom';
 import NavbarCSS from './Navbar.module.css';
+import { isAdmin } from './../../utils/TokenUtils';
 
 function Navbar() {
 
@@ -13,6 +14,7 @@ function Navbar() {
                 <li><NavLink to="/product/categories/1" style={ activeStyle }>식사</NavLink></li>
                 <li><NavLink to="/product/categories/2" style={ activeStyle }>디저트</NavLink></li>
                 <li><NavLink to="/product/categories/3" style={ activeStyle }>음료</NavLink></li>
+                { isAdmin() && <li><NavLink to="/product-management" style={ activeStyle }>상품등록</NavLink></li> }
             </div>
         </div>
     );

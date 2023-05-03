@@ -1,5 +1,6 @@
 package com.greedy.comprehensive.configuration;
 
+
 import java.util.Arrays;
 
 import org.springframework.context.annotation.Bean;
@@ -72,7 +73,9 @@ public class SecurityConfig {
 		              * 이 때 OPTIONS 메서드로 서버에 사전 요청을 보내 요청 권한이 있는지 확인 */
 		             .antMatchers(HttpMethod.OPTIONS, "/**").permitAll()
 		             .antMatchers("/auth/**").permitAll()
-		             .antMatchers("/api/v1/products/**").permitAll()
+		             .antMatchers(HttpMethod.GET, "/api/v1/products/**").permitAll()
+		             .antMatchers("/api/v1/products/**").hasRole("ADMIN")
+		             .antMatchers("/api/v1/products-management/**").hasRole("ADMIN")
 		             .antMatchers(HttpMethod.GET, "/api/v1/reviews/**").permitAll()
 		             .antMatchers("/api/**").hasAnyRole("USER", "ADMIN")  // 나머지 API 는 전부 인증 필요
 		         .and()
@@ -105,3 +108,4 @@ public class SecurityConfig {
     }
 
 }
+

@@ -3,7 +3,7 @@ import HeaderCSS from './Header.module.css';
 import { useState } from "react";
 import { isLogin } from "../../utils/TokenUtils";
 
-function Header() {
+function Header({onClickLogoutHandler}) {
 
     const navigate = useNavigate();
     const [search, setSearch] = useState('');
@@ -35,12 +35,6 @@ function Header() {
     }
 
     function AfterLogin() {
-
-        const onClickLogoutHandler = () => {
-            window.localStorage.removeItem('accessToken');
-            alert('로그아웃 후 메인으로 이동합니다.');
-            navigate('/', { replace : true });
-        }
 
         const onClickMyPageHandler = () => {
             navigate("/mypage");

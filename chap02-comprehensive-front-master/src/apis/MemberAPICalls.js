@@ -1,4 +1,4 @@
-import { postLogin, postRegister } from "../modules/MemberModule";
+import { getMember, postLogin, postRegister } from "../modules/MemberModule";
 
 const SERVER_IP = `${process.env.REACT_APP_RESTAPI_SERVER_IP}`;
 const SERVER_PORT = `${process.env.REACT_APP_RESTAPI_SERVER_PORT}`;
@@ -52,6 +52,50 @@ export const callLoginAPI = (form) => {
         dispatch(postLogin(result));
     }
 }
+
+/* 회원 정보 조회 API */
+export const callGetMemberAPI = () => {
+
+    const requestURL = `${PRE_URL}/api/v1/members`;
+
+    return async (dispatch, getState) => {
+
+        const result = await fetch(requestURL, {
+            method : 'GET',
+            headers : {
+                "Content-Type" : "application/json",
+                "Authorization" : "Bearer " + window.localStorage.getItem('accessToken')
+            }
+        }).then(response => response.json());
+
+        console.log('[MemberAPICalls] callGetMemberAPI result : ', result);
+
+        if(result.status === 200) {
+            dispatch(getMember(result));
+        }
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
