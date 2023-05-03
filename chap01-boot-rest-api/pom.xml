@@ -12,7 +12,7 @@
 	<artifactId>api</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>chap01-boot-rest-api</name>
-	<description>Demo project for Spring rest api</description>
+	<description>Demo project for Spring Boot rest api</description>
 	<properties>
 		<java.version>11</java.version>
 	</properties>
@@ -33,26 +33,26 @@
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
 		</dependency>
+		
 		<!-- https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-validation -->
 		<dependency>
 		    <groupId>org.springframework.boot</groupId>
 		    <artifactId>spring-boot-starter-validation</artifactId>
-<!--	    <version>2.7.11</version> 버전 정보는 빼고 넣는다.
--->		</dependency>
-<!-- https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-hateoas -->
+		</dependency>
+		
+		<!-- https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-hateoas -->
 		<dependency>
 		    <groupId>org.springframework.boot</groupId>
 		    <artifactId>spring-boot-starter-hateoas</artifactId>
-<!--		    <version>2.7.11</version>
--->		</dependency>
-			<!-- https://mvnrepository.com/artifact/io.springfox/springfox-boot-starter -->
-			<dependency>
-			    <groupId>io.springfox</groupId>
-			    <artifactId>springfox-boot-starter</artifactId>
-			    <version>3.0.0</version>
-			</dependency>
+		</dependency>
 
-		
+		<!-- https://mvnrepository.com/artifact/io.springfox/springfox-boot-starter -->
+		<dependency>
+		    <groupId>io.springfox</groupId>
+		    <artifactId>springfox-boot-starter</artifactId>
+		    <version>3.0.0</version>
+		</dependency>
+
 	</dependencies>
 
 	<build>
@@ -65,3 +65,4 @@
 	</build>
 
 </project>
+

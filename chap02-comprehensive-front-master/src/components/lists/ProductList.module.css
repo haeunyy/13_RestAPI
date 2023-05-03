@@ -1,0 +1,8 @@
+/* margin: 10px; -> margin: 10px auto; 으로 수정*/
+.productDiv {
+    display: flex;
+    flex-wrap: wrap;
+    width: 850px;
+    height: 100%;
+    margin: 10px auto;
+}
