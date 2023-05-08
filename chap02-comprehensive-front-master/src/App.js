@@ -11,6 +11,10 @@ import Profile from "./pages/member/Profile";
 import ProductManagement from "./pages/admin/ProductManagement";
 import ProductRegistration from "./pages/admin/ProductRegistration";
 import ProductUpdate from "./pages/admin/ProductUpdate";
+import Purchase from "./pages/purchase/Purchase";
+import Payment from "./pages/member/Payment";
+import Review from "./pages/review/Review";
+import ReviewDetail from "./pages/review/ReviewDetail";
 
 function App() {
   return (
@@ -21,6 +25,14 @@ function App() {
           <Route path="product/categories/:categoryCode" element={<Main />} />
           <Route path="search" element={<Main />} />
           <Route path="product/:productCode" element={<ProductDetail />} />
+          <Route
+            path="product/:productCode/purchase"
+            element={
+              <ProtectedRoute loginCheck={true}>
+                <Purchase />
+              </ProtectedRoute>
+            }
+          />
 
           <Route path="mypage" element={<MyPageLayout />}>
             <Route index element={<Navigate to="/mypage/profile" replace />} />
@@ -29,6 +41,14 @@ function App() {
               element={
                 <ProtectedRoute loginCheck={true}>
                   <Profile />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="payment"
+              element={
+                <ProtectedRoute loginCheck={true}>
+                  <Payment />
                 </ProtectedRoute>
               }
             />
@@ -58,6 +78,9 @@ function App() {
               </ProtectedRoute>
             }
           />
+
+          <Route path="review/:productCode" element={<Review />} />
+          <Route path="reviewDetail/:reviewCode" element={<ReviewDetail />} />
         </Route>
 
         <Route

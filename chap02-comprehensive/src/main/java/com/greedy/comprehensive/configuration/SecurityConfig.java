@@ -1,6 +1,5 @@
 package com.greedy.comprehensive.configuration;
 
-
 import java.util.Arrays;
 
 import org.springframework.context.annotation.Bean;
@@ -108,4 +107,3 @@ public class SecurityConfig {
     }
 
 }
-

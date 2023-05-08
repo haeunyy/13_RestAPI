@@ -14,3 +14,8 @@ export function isAdmin() {
     const token = decodeJwt();
     return (token && token.exp * 1000 > Date.now() && token.auth[0] === 'ROLE_ADMIN');
 }
+
+export function getMemberId() {
+    const token = decodeJwt();
+    return (token && token.sub);
+}
